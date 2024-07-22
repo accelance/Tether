@@ -9,7 +9,7 @@ var paused = false
 
 func wait(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
-	#paused = false
+	paused = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -37,28 +37,30 @@ func _input(event):
 func vector3_to_string(v: Vector3) -> String:
 	return "Vector3(%s, %s, %s)" % [str(v.x), str(v.y), str(v.z)]
 
-func switch():
-	print("Before \n player position: " + vector3_to_string(player.position) + "\n")
-	print("Before \n tether position: " + vector3_to_string(global_position) + "\n")
-	var pos = global_position
-	global_position = player.position
-	player.position = pos
-	print("After \n player position: " + vector3_to_string(player.position) + "\n")
-	print("After \n tether position: " + vector3_to_string(global_position) + "\n")
-	#var parent_pos = player.position
-	#r = (position - parent_pos).length()
-	#t = acos((position.x - parent_pos.x) / r)
+
 
 func swap_global_positions(parent: Node3D, child: Node3D):
-    # Store global transforms
+	# Store global transforms
+	print("Before \n player position: " + vector3_to_string(player.position) + "\n")
+	print("Before \n tether position: " + vector3_to_string(global_position) + "\n")
+		# Store global transforms
 	var parent_global_transform = parent.global_transform
 	var child_global_transform = child.global_transform
 
-    # Compute the child's new global position in the parent coordinate system
-	var new_child_transform = parent.to_local(child_global_transform.origin)
+	# Compute the new global positions
+	var parent_new_global_position = child_global_transform.origin
 
-    # Set the parent's global position to the child's previous global position
-	parent.global_transform.origin = child_global_transform.origin
+	# Compute the new local transforms
+	var parent_new_local_transform = parent_global_transform
+	parent_new_local_transform.origin = parent_new_global_position
 
-    # Update the child's local transform to reflect the new global position
-	child.transform.origin = new_child_transform
+
+	# Update the parent's global transform
+	parent.global_transform.origin = parent_new_global_position
+
+
+	# Update the local transforms to reflect new global positions
+	parent.transform = parent_new_local_transform
+	child.position *= -1 
+	print("After \n player position: " + vector3_to_string(player.position) + "\n")
+	print("After \n tether position: " + vector3_to_string(global_position) + "\n")
