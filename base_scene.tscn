@@ -1,0 +1,110 @@
+[gd_scene load_steps=13 format=3 uid="uid://w1tjs4udtei7"]
+
+[ext_resource type="Script" path="res://PlayerController.gd" id="1_v7w7a"]
+[ext_resource type="Script" path="res://CamZoom.gd" id="2_opc6h"]
+[ext_resource type="Script" path="res://Tether.gd" id="3_jchgh"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cbbkq"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ydav6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_egsrw"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2hd4f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pi2l1"]
+albedo_color = Color(0.498039, 0.490196, 0.552941, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6gpuc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1ikbu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iwcb4"]
+albedo_color = Color(0.686275, 0.117647, 0.109804, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_387fa"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Statics" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.63979, 0.274241, -6.36295)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Statics"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Statics/StaticBody3D2"]
+shape = SubResource("CylinderShape3D_cbbkq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Statics/StaticBody3D2"]
+mesh = SubResource("CylinderMesh_ydav6")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="Statics"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4389, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Statics/StaticBody3D3"]
+shape = SubResource("CylinderShape3D_cbbkq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Statics/StaticBody3D3"]
+mesh = SubResource("CylinderMesh_ydav6")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="Statics"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4389, 0, 14.2388)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Statics/StaticBody3D4"]
+shape = SubResource("CylinderShape3D_cbbkq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Statics/StaticBody3D4"]
+mesh = SubResource("CylinderMesh_ydav6")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="Statics"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.59474, 0, 14.2388)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Statics/StaticBody3D5"]
+shape = SubResource("CylinderShape3D_cbbkq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Statics/StaticBody3D5"]
+mesh = SubResource("CylinderMesh_ydav6")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Statics"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.64, 0.178017, 6.363)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Statics/StaticBody3D"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, -0.022, -11.1617, 0.269)
+shape = SubResource("BoxShape3D_egsrw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Statics/StaticBody3D"]
+transform = Transform3D(10.3879, 0, 0, 0, 10.3879, 0, 0, 0, 10.3879, 0.0376091, -1.13599, 0.0564747)
+mesh = SubResource("PlaneMesh_2hd4f")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_pi2l1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0567974, 0.998386, 0, -0.998386, 0.0567974, 0, 11.882, 0)
+
+[node name="Player" type="Node3D" parent="."]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="Player"]
+script = ExtResource("1_v7w7a")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/CharacterBody3D"]
+transform = Transform3D(0.202395, 0, 0, 0, 0.202395, 0, 0, 0, 0.202395, 0, 0, 0)
+shape = SubResource("BoxShape3D_6gpuc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/CharacterBody3D"]
+mesh = SubResource("BoxMesh_1ikbu")
+
+[node name="CamYAncor" type="Node3D" parent="Player/CharacterBody3D"]
+
+[node name="Camera3D" type="Camera3D" parent="Player/CharacterBody3D/CamYAncor"]
+transform = Transform3D(1, 0, 0, 0, 0.778243, 0.627963, 0, -0.627963, 0.778243, 1, 5.07173, 5)
+script = ExtResource("2_opc6h")
+
+[node name="Tether" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(0.202395, 0, 0, 0, 0.202395, 0, 0, 0, 0.202395, 0, 0, 1.79557)
+material_override = SubResource("StandardMaterial3D_iwcb4")
+mesh = SubResource("CapsuleMesh_387fa")
+skeleton = NodePath("../CharacterBody3D/MeshInstance3D")
+script = ExtResource("3_jchgh")
